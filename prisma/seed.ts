@@ -23,7 +23,7 @@ const seed = async () => {
   for (const seedFile of seedFiles) {
     const seedFilePath = path.join(seedFilesPath, seedFile.toString())
 
-    await exec(`ts-node ${seedFilePath}`)
+    await exec(`tsx ${seedFilePath}`)
   }
 }
 

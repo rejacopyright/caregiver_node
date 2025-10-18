@@ -1,0 +1,17 @@
+enum TaskStatus {
+  PENDING
+  COMPLETED
+  NOT_COMPLETED
+}
+
+model task {
+  id            String    @id @default(uuid())
+  scheduleId    String
+  description   String
+  status        TaskStatus @default(PENDING) // PENDING | COMPLETED | NOT_COMPLETED
+  reason        String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  schedule      schedule   @relation(fields: [scheduleId], references: [id])
+}

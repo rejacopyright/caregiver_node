@@ -1,0 +1,25 @@
+enum VisitStatus {
+  UPCOMING
+  INPROGRESS
+  MISSED
+  COMPLETED
+}
+
+model schedule {
+  id            String      @id @default(uuid())
+  clientName    String
+  shiftStart    DateTime
+  shiftEnd      DateTime
+  placeName     String?
+  address       String?
+  status        VisitStatus @default(UPCOMING)
+  startTime     DateTime?
+  endTime       DateTime?
+  startLat      Float?
+  startLng      Float?
+  endLat        Float?
+  endLng        Float?
+  tasks         task[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}

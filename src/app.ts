@@ -9,7 +9,10 @@ import moment from 'moment-timezone'
 import logger from 'morgan'
 import path from 'path'
 
+import developerRouter from './routes/developer'
 import indexRouter from './routes/index'
+import scheduleRouter from './routes/schedule'
+import taskRouter from './routes/task'
 
 const app = express()
 
@@ -34,6 +37,9 @@ app.use(cors())
 app.use('/static', express.static(path.join(__dirname, '../public')))
 
 app.use('/', indexRouter)
+app.use('/api/v1/schedule', scheduleRouter)
+app.use('/api/v1/task', taskRouter)
+app.use('/api/v1/developer', developerRouter)
 // app.use('/api/v1/auth', authAPI)
 
 // catch 404 and forward to error handler

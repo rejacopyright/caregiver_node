@@ -64,8 +64,6 @@ PORT=4000
 DATABASE_URL="file:../../sqlite.db"
 ```
 
-> ⚠️ Ensure the database file path is correct relative to your project structure.
-
 ---
 
 ## 🏃 Running the Server

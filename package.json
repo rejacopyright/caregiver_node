@@ -6,7 +6,7 @@
     "start": "tsx ./src/bin/www.ts",
     "dev": "tsx watch ./src/bin/www.ts",
     "deploy": "pm2 startOrRestart pm2.config.js --env prod",
-    "postinstall": "npx prisma generate",
+    "postinstall": "npx prisma generate && yarn push && yarn seed",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts  --fix --no-ignore",
     "lint:quiet": "eslint . --ext .ts  --quiet",

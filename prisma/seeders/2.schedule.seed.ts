@@ -108,6 +108,10 @@ async function main() {
     const client = clientNames[i % clientNames.length]
     const address = addresses[i % addresses.length]
 
+    // Calculate task interval
+    const totalDuration = (shiftEnd.getTime() - shiftStart.getTime()) / 1000 / 60 // in minutes
+    const interval = totalDuration / careTasks.length
+
     const schedule = await prisma.schedule.create({
       data: {
         clientName: client,
@@ -119,10 +123,15 @@ async function main() {
         startLat: coords.lat,
         startLng: coords.lng,
         tasks: {
-          create: careTasks.map((task) => ({
-            description: task,
-            status: 'PENDING',
-          })),
+          create: careTasks.map((description, idx) => {
+            const taskTime = new Date(shiftStart.getTime() + idx * interval * 60 * 1000)
+
+            return {
+              description,
+              status: 'PENDING',
+              taskTime,
+            }
+          }),
         },
       },
     })
@@ -141,6 +150,10 @@ async function main() {
     const client = clientNames[i % clientNames.length]
     const address = addresses[i % addresses.length]
 
+    // Calculate task interval
+    const totalDuration = (shiftEnd.getTime() - shiftStart.getTime()) / 1000 / 60 // in minutes
+    const interval = totalDuration / careTasks.length
+
     const schedule = await prisma.schedule.create({
       data: {
         clientName: client,
@@ -156,10 +169,15 @@ async function main() {
         endLat: coordsEnd.lat,
         endLng: coordsEnd.lng,
         tasks: {
-          create: careTasks.map((task) => ({
-            description: task,
-            status: 'COMPLETED',
-          })),
+          create: careTasks.map((description, idx) => {
+            const taskTime = new Date(shiftStart.getTime() + idx * interval * 60 * 1000)
+
+            return {
+              description,
+              status: 'COMPLETED',
+              taskTime,
+            }
+          }),
         },
       },
     })
@@ -177,6 +195,10 @@ async function main() {
     const client = clientNames[i % clientNames.length]
     const address = addresses[i % addresses.length]
 
+    // Calculate task interval
+    const totalDuration = (shiftEnd.getTime() - shiftStart.getTime()) / 1000 / 60 // in minutes
+    const interval = totalDuration / careTasks.length
+
     const schedule = await prisma.schedule.create({
       data: {
         clientName: client,
@@ -188,11 +210,16 @@ async function main() {
         startLat: coords.lat,
         startLng: coords.lng,
         tasks: {
-          create: careTasks.map((task) => ({
-            description: task,
-            status: 'NOT_COMPLETED',
-            reason: 'Caregiver did not arrive.',
-          })),
+          create: careTasks.map((description, idx) => {
+            const taskTime = new Date(shiftStart.getTime() + idx * interval * 60 * 1000)
+
+            return {
+              description,
+              status: 'NOT_COMPLETED',
+              reason: 'Caregiver did not arrive.',
+              taskTime,
+            }
+          }),
         },
       },
     })

@@ -10,6 +10,7 @@ model task {
   description   String
   status        TaskStatus @default(PENDING) // PENDING | COMPLETED | NOT_COMPLETED
   reason        String?
+  taskTime      DateTime?
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
